@@ -1,0 +1,257 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+
+/*
+#include "add.h"
+int main()
+{
+  int a = 10;
+  int b = 20;
+  int sum = Add(a,b);
+  printf("%d",sum);
+    return 0;
+}
+*/
+                          //函数递归:函数调用其本身
+//历史上最简单的递归
+/*
+int main()
+{
+    //递归常见的错误——栈溢出--stack overflow
+    printf("hehe");
+    main();
+    return 0;
+}
+*/
+/*
+//练习1：接受一个整型值 按照顺序打印它的每一位 例如输入1234  打印1 2 3 4
+void print(int n)
+{
+    if(n>9)
+    {
+        print(n/10);
+    }
+    printf("%d ",n%10);
+}
+int main()
+{
+   unsigned int num = 0;  // unsigned int---无符号整型
+   scanf("%d",&num);
+   //递归
+   print(num);
+   //print(1234)
+   //print(123) 4
+   //print(12) 3 4
+   //print(1) 2 3 4
+    return 0;
+}
+*/
+//练习2.编写函数 不允许创建临时变量 求字符串的长度
+/*
+//常规的方法 创建了临时变量count
+int my_strlen(char* str)
+{
+    int count = 0;
+    while(*str != '\0') // \0 是字符串结束的标志
+    {
+        count++;
+        str++;
+    }
+    return count;
+}
+*/
+/*
+//递归的方法解决
+//把大事化小
+//my_strlen("hello");
+//1+my_strlen("ello");
+//1+1+my_strlen("llo");
+//1+1+1+my_strlen("lo");
+//1+1+1+1+my_strlen("o");
+//1+1+1+1+1+my_strlen("");
+//1+1+1+1+1+0
+//5
+int my_strlen(char* str)
+{
+   if(*str != '\0')
+       return 1+my_strlen(str+1);
+   else
+       return 0;
+
+}
+int main()
+{
+    char arr[] = "hello";
+//    int len = strlen(arr);
+//    printf("%d\n",len);
+     int len = my_strlen(arr); //arr是数组 数组传参 传过去的不是整个数组 而是第一个元素的地址
+     printf("len = %d\n",len);
+     //模拟实现了一个strlen函数
+      return 0;
+}
+*/
+              //递归与迭代
+
+//练习3.求n的阶乘（不考虑溢出）
+/*
+//常规方法
+int Fac1(int n)
+{
+    int i = 0;
+    int ret = 1;
+    for(i=1;i<=n;i++)
+    {
+        ret *= i;
+    }
+    return ret;
+}
+*/
+/*
+//递归方法
+int Fac1(int n)
+{
+    if(n<=1)
+        return 1;
+    else
+        return n*Fac1(n-1);
+}
+int main()
+{
+  int n = 0;
+  scanf("%d",&n);
+  int ret = 0;
+  ret = Fac1(n);
+  printf("%d",ret);
+    return 0;
+}
+*/
+  //练习4.求第n个斐波那契数（不考虑溢出）
+
+    //斐波那契数列：前两项数字之和等于第三个数字  例如：1，1，2，3，5，8，13，21，34，55.....
+/*
+   //用递归方法计算第n个斐波那契数不明智 n太大了CPU就要炸了
+int count = 0;
+int Fib(int n)
+{
+    if(n==3)
+    {
+        count++; //测试第三个斐波那契数的计算次数
+    }
+    if(n<=2)
+        return 1;
+
+    else
+        return Fib(n-1)+Fib(n-2);
+}
+*/
+/*
+ //使用迭代=循环的方式
+int Fib(int n)
+{
+    int a = 1;
+    int b = 1;
+    int c = 1;
+
+    while(n>2)
+    {
+        c = a+b;
+        a = b;
+        b = c;
+        n--;
+    }
+    return c;
+}
+int main()
+{
+  int n = 0;
+  scanf("%d",&n);
+  int ret = 0;
+  ret = Fib(n);
+  printf("%d\n",ret);
+  //printf("%d",count);//第三个斐波那契数的计算次数
+    return 0;
+}
+*/
+//函数递归的经典问题（自主研究）
+//1.汉诺塔问题
+//2.青蛙跳台阶问题
+        //===============-《剑指offer》
+
+
+ //1.汉诺塔问题
+ /*
+    1个盘子：A->C 1
+    2个盘子：A->B A->C B->C
+    3个盘子：A->C A->B C->B A->C B->A B->C A->C
+ */
+//
+// void move(char pos1,char pos2)
+// {
+//     printf(" %c->%c ",pos1,pos2);
+// }
+// void Hannuota(int n,char pos1,char pos2,char pos3)
+// {
+//    /*
+//    n代表盘子个数
+//    pos1：起始位置
+//    pos2：中转位置
+//    pos3：目的位置
+//    */
+//    if(n==1)
+//    {
+//        move(pos1,pos3);//一个盘子直接从起始位置移动到目的位置
+//    }
+//    else
+//    {
+//        Hannuota(n-1,pos1,pos3,pos2);
+//        move(pos1,pos3);
+//        Hannuota(n-1,pos2,pos1,pos3);
+//    }
+// }
+// int main()
+// {
+//    Hannuota(1,'A','B','C');
+//    printf("\n");
+//    Hannuota(2,'A','B','C');
+//    printf("\n");
+//    Hannuota(3,'A','B','C');
+//    printf("\n");
+//
+//     return 0;
+// }
+/*
+ //青蛙跳台阶问题---一只青蛙一次可以跳一级台阶 也可以跳两级 如果青蛙跳上n级台阶 有几种跳法
+        // n级台阶   跳法
+        //   1       1
+        //   2       2
+        //   3       3
+        //   4       5
+        //   5       8
+
+int Qingwa(int n)
+{
+    if(n<=2)
+        return n;
+    else
+        return Qingwa(n-1)+Qingwa(n-2);
+}
+int main()
+{
+    int n = 0;
+    scanf("%d",&n);
+    int ret = 0;
+    ret = Qingwa(n);
+    printf("%d\n",ret);
+    return 0;
+}
+*/
+
+
+
+
+
