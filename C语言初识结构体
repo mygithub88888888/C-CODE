@@ -1,0 +1,134 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+
+/*          //结构体
+//结构的声明
+struct Stu //结构体关键字 结构体标签
+{
+    char name[20];
+    short age;
+    char tele[12];
+    char sex[5];
+}s1;s2;s3;//三个全局的结构体变量
+int main()
+{
+    struct Stu s;//局部的结构体变量
+    return 0;
+}
+
+typedef struct Stu //结构体关键字 结构体标签
+{
+    char name[20];
+    short age;
+    char tele[12];
+    char sex[5];
+}Stu;//类型
+int main()
+{
+    Stu s1;//局部变量s1  typedef的作用
+    struct Stu s2;//局部变量s2
+    return 0;
+}
+*/
+/*
+//结构体变量的定义和初始化
+//typedef struct Stu //结构体关键字 结构体标签
+//{
+//    char name[20];
+//    short age;
+//    char tele[12];
+//    char sex[5];
+//}Stu;//类型
+//int main()
+//{
+//    Stu s1 = {"张三",20,"878178771","男"};//初始化
+//    struct Stu s2 = {"往往",23,"654347771","女"};
+//    return 0;
+//}
+
+struct S
+{
+    int a;
+    char c;
+    char arr[20];
+    double d;
+};
+struct T
+{
+    char ch[10];
+    struct S s;//结构体成员可以是其他结构体
+    char*pc;
+};
+int main()
+{
+    char arr[] = "hello world\n";
+    struct T t = {"hehehe",{100,'w',"hello",3.14},arr};//结构体的初始化用大括号
+    printf("%s\n",t.ch);//hehehe
+    printf("%s\n",t.s.arr);
+    printf("%lf\n",t.s.d);
+    printf("%s\n",t.pc);
+    return 0;
+}
+*/
+/*
+//结构体成员的访问
+typedef struct Stu //结构体关键字 结构体标签
+{
+    //成员变量
+    char name[20];
+    short age;
+    char tele[12];
+    char sex[5];
+}Stu;//类型
+void print1(Stu tmp)
+{
+   printf("name:%s\n",tmp.name);
+   printf("age:%d\n",tmp.age);
+   printf("tele:%s\n",tmp.tele);
+   printf("sex:%s\n",tmp.sex);
+}
+void print2(Stu* ps)
+{
+   printf("name: %s\n",ps->name);
+   printf("age: %d\n",ps->age);
+   printf("tele: %s\n",ps->tele);
+   printf("sex: %s\n",ps->sex);
+}
+int main()
+{
+    Stu s = {"闫祥龙",23,"6666888888866","男"};
+    //打印结构体数据
+    print1(s);
+    print2(&s);//推荐结构体传参传地址
+    return 0;
+}
+*/
+//压栈
+//int Add(int x,int y)
+//{
+//    int z = 0;
+//    z = x+y;
+//    return z;
+//}
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    int ret = 0;
+//    ret = Add(a,b);
+//
+//    return 0;
+//}
+
+
+
+
+
+
+
+
