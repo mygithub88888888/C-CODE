@@ -1,0 +1,59 @@
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+                         //数据的存储（3）
+        //浮点型在内存中的存储---复杂
+//int main()
+//{
+//    double d = 1E10;//1.0*10的10次方
+//    printf("%lf\n",d);
+//    return 0;
+//}
+/*
+int main()
+{
+    int n = 9;
+    float* pFloat = (float*)&n;
+    printf("n的值为：%d\n",n);
+    printf("*pFloat的值为: %f\n",*pFloat);
+
+    *pFloat = 9.0;
+    printf("num的值为：%d\n",n);
+    printf("*pFloat的值为: %f\n",*pFloat);
+    return 0;
+}
+*/
+/*
+int main()
+{
+   float f = 5.5;
+   //5.5
+   //101.1
+   //(-1)^0*1.011*2^2
+   //S = 0
+   //M = 1.011
+   //E = 2
+   //0100 0000 1011 0000 0000 0000 0000 0000   ---4个二进制位是一个16进制位
+   //0x40b00000 ---16进制的转换---在内存中的存储
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
