@@ -1,0 +1,493 @@
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+                   //指针的进阶
+                   //1.字符指针
+                   //2.数组指针
+                   //3.指针数组
+                   //4.数组传参和指针传参
+                   //5.函数指针
+                   //6.函数指针数组
+                   //7.指向函数指针数组的指针
+                   //8.回调函数
+                   //9.指针和数组面试题的解析
+
+                 //指针的详解（4）
+/*
+第三节内容补充---参考书籍《C陷阱与缺陷》
+//代码1
+(*(void(*)())0)()
+--- 把0强制类型转换成：void(*)()函数指针类型
+---0就是函数的地址-最后调用0地址处的函数
+//代码2
+void(*  signal(int , void(*)  (int)))(int);
+上述代码2等价于下面的两行代码 对上面的进行了简化
+typedef void(*pfun_t)(int);
+pfun_t signal(int,pfun_t);
+---signal是一个函数声明
+---signal函数的参数有两个 第一个是int 第二个是函数指针 该函数指针指向的函数的参数是int 返回类型是void
+---signal函数的返回类型也是一个函数指针 该函数指针指向的函数的参数是int 返回类型是void
+*/
+/*
+int Add(int x,int y)
+{
+    int z = 0;
+    z = x+y;
+    return z;
+}
+int main()
+{
+    int a = 10;
+    int b = 20;
+
+    int (*pa)(int,int) = Add;
+    printf("%d\n",(pa)(10,8));//18
+    printf("%d\n",(*pa)(10,8));//18
+    printf("%d\n",(**pa)(10,8));//18
+    printf("%d\n",(***pa)(10,8));//18
+
+    return 0;
+}
+*/
+   //函数指针数组
+/*
+int Add(int x,int y)
+{
+    return x+y;
+}
+int Sub(int x,int y)
+{
+    return x-y;
+}
+int Mul(int x,int y)
+{
+    return x*y;
+}
+int Div(int x,int y)
+{
+    return x/y;
+}
+int main()
+{
+    int* arr[5];//指针数组
+
+    int (*pa)(int,int) = Add;//Sub/Mul/Div
+
+    //需要一个数组---这个数组可以存放四个函数的地址---这就是一个存放函数指针的的数组
+
+    int (*parr[4])(int,int) = {Add,Sub,Mul,Div};//函数指针数组
+    int i = 0;
+    for(i=0;i<4;i++)
+    {
+        printf("%d\n",(*parr[i])(2,3));//5 -1 6 0
+    }
+    return 0;
+}
+*/
+/*
+//小练习
+char* my_strcpy(char* dest,const char* src);
+//1.写一个函数指针pf 能够指向my_strcpy
+char*(*pf)(char*,const char*);
+
+//2.写一个函数指针数组 pfArr,额能够存放4个my_strcpy函数的地址
+char* (*pfArr[4])(char* ,const char*) = {my_strcpy,my_strcpy,my_strcpy,my_strcpy};
+*/
+/*
+//计算器
+ void menu()
+ {
+     printf("************************\n");
+     printf("*****1.add    2.sub*****\n");
+     printf("*****3.mul    4.div*****\n");
+     printf("**** 5.xor    0.exit****\n");
+     printf("************************\n");
+ }
+ int Add(int x,int y)
+ {
+     return x+y;
+ }
+ int Sub(int x,int y)
+ {
+     return x-y;
+ }
+ int Mul(int x,int y)
+ {
+     return x*y;
+ }
+ int Div(int x,int y)
+ {
+     return x/y;
+ }
+ int XOR(int x,int y)//异或函数
+ {
+     return x^y;\
+     //相同为0，不同为1
+ }
+ /*
+int main()
+{
+    int input = 0;
+    int x = 0;
+    int y = 0;
+    do
+    {
+        menu(); int Div(int x,int y)
+ {
+     return x/y;
+ }
+        printf("请选择：>");
+        scanf("%d",&input);
+
+
+        switch(input)
+        {
+        case 1:
+             printf("请输入两个操作数：>");
+             scanf("%d%d",&x,&y);
+             printf("%d\n",Add(x,y));
+            break;
+        case 2:
+             printf("请输入两个操作数：>");
+             scanf("%d%d",&x,&y);
+             printf("%d\n",Sub(x,y));
+            break;
+        case 3:
+             printf("请输入两个操作数：>");
+             scanf("%d%d",&x,&y);
+             printf("%d\n",Mul(x,y));
+            break;
+        case 4:
+             printf("请输入两个操作数：>");
+             scanf("%d%d",&x,&y);
+             printf("%d\n",Div(x,y));
+            break;
+        case 0:
+            printf("退出\n");
+            break;
+        default:
+            printf("选择错误\n");
+            break;
+        }
+    }while(input);
+
+    return 0;
+}
+/*
+回调函数
+第一种改造方法运用了回调函数
+函数指针也是一种指针，它指向的是函数。在C中，每个函数在编译后都是存储在内存中，并且每个函数都要一个入口地址，
+根据这个地址，我们就可以访问并使用这个函数。函数指针就是通过指向这个函数的入口，从而调用这个函数。
+*/
+/*
+//对上述main函数中冗余复杂的代码进行第一种改造---利用回调函数
+ void menu()
+ {
+     printf("************************\n");
+     printf("*****1.add    2.sub*****\n");
+     printf("*****3.mul    4.div*****\n");
+     printf("**** 5.xor    0.exit****\n");
+     printf("************************\n");
+ }
+ int Add(int x,int y)
+ {
+     return x+y;
+ }
+ int Sub(int x,int y)
+ {
+     return x-y;
+ }
+ int Mul(int x,int y)
+ {
+     return x*y;
+ }
+ int Div(int x,int y)
+ {
+     return x/y;
+ }
+ int XOR(int x,int y)//异或函数
+ {
+     return x^y;\
+     //相同为0，不同为1
+ }
+ void Calc(int (*pf)(int,int))
+ {
+      printf("请输入两个操作数：>");
+      scanf("%d%d",&x,&y);
+      printf("%d\n",pf(x,y));
+ }
+int main()
+{
+    int input = 0;
+    int x = 0;
+    int y = 0;
+    do
+    {
+        menu(); int Div(int x,int y)
+ {
+     return x/y;
+ }
+        printf("请选择：>");
+        scanf("%d",&input);
+
+
+        switch(input)
+        {
+        case 1:
+           Calc(Add);
+            break;
+        case 2:
+             Calc(Sub);
+            break;
+        case 3:
+             Calc(Mul);
+            break;利用函数指针数组
+        case 4:
+             Calc(Div);
+            break;
+        case 5:
+             Calc(XOR);
+            break;
+        case 0:
+            printf("退出\n");
+            break;
+        default:
+            printf("选择错误\n");
+            break;
+        }
+    }while(input);
+
+    return 0;
+}
+*/
+/*
+//对上述main函数中冗余复杂的代码进行第二种改造---利用函数指针数组
+//函数指针数组的用途：转移表
+void menu()
+ {
+     printf("************************\n");
+     printf("*****1.add    2.sub*****\n");
+     printf("*****3.mul    4.div*****\n");
+     printf("**** 5.xor    0.exit****\n");
+     printf("************************\n");
+ }
+ int Add(int x,int y)
+ {
+     return x+y;
+ }
+ int Sub(int x,int y)
+ {
+     return x-y;
+ }
+ int Mul(int x,int y)
+ {
+     return x*y;
+ }
+ int Div(int x,int y)
+ {
+     return x/y;
+ }
+ int XOR(int x,int y)//异或函数
+ {
+     return x^y;\
+     //相同为0，不同为1
+ }
+int main()
+{
+    int input = 0;
+    int x = 0;
+    int y = 0;
+    int (*pfArr[6])(int,int) = {0,Add,Sub,Mul,Div,XOR};
+    //pfArr函数指针数组
+    do
+    {
+        menu();
+        printf("请选择：>");
+        scanf("%d",&input);
+        if(input >= 1 && input <= 5)
+        {
+            printf("请输入两个操作数：>");
+            scanf("%d%d",&x,&y);
+            int ret = pfArr[input](x,y);
+            printf("%d\n",ret);
+        }
+        else if(input == 0)
+        {
+            printf("退出\n");
+        }
+        else
+        {
+            printf("选择错误\n");
+        }
+
+    }while(input);
+
+    return 0;
+}
+*/
+/*
+//指向函数指针数组的指针
+ int Add(int x,int y)
+ {
+     return x+y;
+ }
+int main()
+{
+    int arr[10] = {0};
+    int (*p)[10] = &arr;//数组指针
+
+    int (*pf)(int,int);//函数指针
+    int (*pfARR[4])(int,int);//pfArr是函数指针数组
+    int(*(*pfARR[4])(int,int);//指向函数指针数组的指针
+
+    int (*pfArr[4])(int,int);//pfArr是函数指针数组
+    int (*(*ppfArr[4]))= &pfArr();
+    //pfArr是函数指针数组,指针指向的数组有4个元素
+    //指向数组的的每个元素的类型是一个函数指针 int(*)(int,int)
+
+    return 0;
+}
+*/
+/*
+回调函数
+第一种改造方法运用了回调函数
+函数指针也是一种指针，它指向的是函数。在C中，每个函数在编译后都是存储在内存中，并且每个函数都要一个入口地址，
+根据这个地址，我们就可以访问并使用这个函数。函数指针就是通过指向这个函数的入口，从而调用这个函数。
+对于回调函数一种比较简单的理解也就是将一个函数指针以参数的形式传递给另一个函数。
+*/
+/*
+void print(char*str)
+{
+    printf("hehehe:%s",str);
+}
+void test(void (*p)(char*))
+{
+    printf("test\n");
+    p("bit");
+}
+int main()
+{
+
+    test(print);
+
+    return 0;
+}
+*/
+/*
+  void bubble_sort(int arr[],int sz)
+
+  {
+      //我的51CTO博客
+
+      //确定冒泡排序的趟数
+
+      int i = 0;
+
+      for(i=0;i<sz-1;i++)
+
+      {
+
+          //每一趟冒泡排序
+
+          int j = 0;
+
+          for(j = 0;j<sz-1-i;j++)
+
+          {
+
+              if(arr[j]>arr[j+1])
+
+              {
+
+                  int tmp = arr[j];
+
+                  arr[j] = arr[j+1];
+
+                  arr[j+1] = tmp;
+
+              }
+
+          }
+
+      }
+
+  }
+
+  //对函数进行优化
+
+//   void bubble_sort(int arr[],int sz)
+
+//   {
+
+//       //确定冒泡排序的趟数
+
+//       int i = 0;
+
+//       for(i=0;i<sz-1;i++)
+
+//       {
+
+//           int flag = 1;   //假设这一趟要排序的数据已经有序
+
+//           //每一趟冒泡排序
+
+//           int j = 0;
+
+//           for(j = 0;j<sz-1-i;j++)
+
+//           {
+
+//               if(arr[j]>arr[j+1])
+
+//               {
+
+//                   int tmp = arr[j];
+
+//                   arr[j] = arr[j+1];
+
+//                   arr[j+1] = tmp;
+
+//                   flag = 0;   //本趟排序的数据其实不完全有序
+
+//               }
+
+//           }
+
+//           if(flag == 1)
+
+//            {
+
+//              break;
+
+//            }
+
+//       }
+
+//   }
+int main()
+{
+    //冒泡排序函数
+    //冒泡排序函数只能排序整型数组
+    int arr[] = {3,2,1,4,5,6,9,8,7,0};
+    int sz = sizeof(arr)/sizeof(arr[0]);
+    BobbleSort(arr,sz);
+    return 0;
+}
+//qsort函数 - 可以排序任意类型的数据 --- 见下一节
+
+
+
+
+
+
+
+
+
+
+
+
