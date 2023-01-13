@@ -1,0 +1,175 @@
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+                   //指针的进阶
+                   //1.字符指针
+                   //2.数组指针
+                   //3.指针数组
+                   //4.数组传参和指针传参
+                   //5.函数指针
+                   //6.函数指针数组
+                   //7.指向函数指针数组的指针
+                   //8.回调函数
+                   //9.指针和数组面试题的解析
+
+                 //指针的详解（3）
+/*
+//知识回顾
+int main()
+{
+    //字符指针
+    char ch = 'w';
+    char*p = &ch;
+    const char*p2 = "asdfgg";
+    return 0;
+}
+int main()
+{
+    //指针数组
+    int* arr[10];
+    char* ch[10];
+    return 0;
+}
+int main()
+{
+    //数组指针
+    int*p8;//整型指针-指向整型的指针
+    char*p9;//整型指针-指向字符的指针
+    int arr2[5];
+    int (*pa)[5] = &arr2;//整型指针-指向数组的指针-pa就是数组指针
+    return 0;
+}
+*/
+  //数组参数和指针参数
+  /*
+  //一维数组传参
+void test(int arr[])
+{}
+void test(int arr[10])
+{}
+void test(int* arr)
+{}
+void test(int*arr[20])
+{}
+void test(int **arr)
+{}
+int main()
+{
+    int arr[10] = {0};
+    int *arr2[20] = {0};
+    test(arr);//一维数组传参
+    test2(arr2);//一维数组传参
+    return 0;
+}
+*/
+/*
+  //二维数组传参
+void test(int arr[3][5])
+{}
+void test(int arr[][5])//这种写法正确行可以省略 列不可以省略
+{}
+void test(int arr[3][])//这种写法错误的 行可以省略 列不可以省略  err
+{}
+void test(int arr[][])//这种写法错误 err
+{}
+void test2(int*arr)//err
+{}
+void test3(int**arr)//err
+{}
+void test4(int(*arr)[5])//正确
+{}
+int main()
+{
+    int arr[3][5] = {0};
+    test(arr);//二维数组传参
+    test2(arr);
+    test3(arr);
+    test4(arr);
+    return 0;
+}
+*/
+/*
+//一级指针传参
+void test1(int*p)
+{
+}
+void test2(char*p)
+{
+}
+int main()
+{
+    int a = 10;
+    int*p1 = &a;
+    char ch = 'v';
+    char*pc = &ch;
+    test2(&ch);
+    test2(pc);
+    return 0;
+}
+*/
+/*
+//二级指针传参
+void test(int **p)
+{
+}
+int main()
+{
+    int *ptr;
+    int **pp = &ptr;
+    test(&ptr);
+    test(pp);
+    int* arr[10];
+    test(arr);//指针数组也可以
+    return 0;
+}
+*/
+/*
+//函数指针
+int Add(int x,int y)
+{
+    int z = 0;
+    z = x+y;
+    return z;
+}
+int main()
+{
+    int a = 10;
+    int b = 20;
+
+    int arr[10] = {0};
+    int (*p)[10] = &arr;
+    printf("%d\n",Add(a,b));//30
+
+    //&函数名 和 函数名 都是函数的地址 类似于数组
+//    printf("%p\n",&Add);
+//    printf("%p\n",Add);
+
+    int (*pa)(int,int) = Add;
+    printf("%d\n",(*pa)(10,8));//18
+    return 0;
+}
+
+void Print(char*str)
+{
+    printf("%s\n",str);
+}
+int main()
+{
+     void (*p)(char*)= Print;// 把Print的地址存起来
+     (*p)("helloyanxianglong");
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
