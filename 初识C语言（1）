@@ -1,0 +1,184 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+                   //初识C语言（1）
+//int main()
+//{
+//   //printf("hello world love my father");
+//   int num1 = 0;
+//   int num2 = 0;
+//   int sum = 0;
+//   scanf("%d%d",&num1,&num2);
+//   sum = num1+num2;
+//   printf("sum = %d\n",sum);
+//   return 0;
+//}
+//常量
+   //const - 常属性
+//int main()
+//{
+////    const int num = 0;
+////    printf("%d\n",num);
+//   int n = 10;//n是变量
+//   int arr[10] = {0};
+//  return 0;
+//}
+//define定义的标识符常量
+//#define MAX 10
+//int main()
+//{
+//    int arr[MAX] = {0};
+//    printf("%d\n",MAX);
+//    return 0;
+//}
+//枚举常量 - enum
+//enum Sex
+//{
+//    MALE,
+//    FEMALE,
+//    SECRET,
+//};
+//int main()
+//{
+//  // enum Sex s = FEMALE;
+//  printf("%d\n",MALE);//0
+//  printf("%d\n",FEMALE);//1
+//  printf("%d\n",SECRET);//2
+//
+//    return 0;
+//}
+//enum Color
+//{
+//    RED,
+//    YELLOW,
+//    BLUE,
+//};
+//int main()
+//{
+//  // enum Color s = FEMALE;
+//  printf("%d\n",RED);//0
+//  printf("%d\n",YELLOW);//1
+//  printf("%d\n",BLUE);//2
+//
+//    return 0;
+//}
+//字符串
+//int main()
+//{
+//   char arr1[] = "abc";
+//   printf("%s\n",arr1);
+//    printf("%d\n",strlen(arr1));
+//   char arr2[] = {'a','b','c'};
+//   printf("%s\n",arr2);
+//   printf("%d\n",strlen(arr2));//随机值
+//   //字符串的结束标志是\0
+//   //a-97 A-65 ASCII编码
+//    return 0 ;
+//}
+//转义字符
+//int main()
+//{
+//    /*
+//    //printf("abc\n");
+//    //t-水平制表符
+//    printf("%d\n",strlen("c:\test\32\test.c"));//13  \32是一个字符
+//    printf("%c\n",'\132');//先转为10进制，在查询ACCII表
+//    printf("%c\n",'\x61');//先转为16进制，在查询ACCII表*/
+//
+//    int line = 0;
+//    while(line<200){
+//        printf("牛逼clus\n");
+//        line++;
+//    }
+//    if(line>=200)
+//    printf("我爱你");
+//    return 0;
+//}
+//函数
+/*
+int Add(int x,int y)
+{
+    int s = x+y;
+    return s;
+}
+int main()
+{
+   int num1 = 0;
+   int num2 = 0;
+   int sum = 0;
+   printf("输入两个数字\n");
+   scanf("%d%d",&num1,&num2);
+   sum = Add(num1,num2);//函数
+   printf("sum = %d\n",sum);
+   return 0;
+}
+*/
+/*
+//数组
+int main()
+{
+    int arr[20] = {1,2,3,4,5,6,7,8,9,10};
+    int i = 0;
+    while(i<10){
+      printf("%d\n",arr[i]);
+      i++;
+    }
+
+    return 0;
+}
+*/
+/*
+//移位操作符--<< 左移 >>右移--补0 二进制计算
+int main()
+{
+    int a = 1;
+    int b = a<<1;
+    int v = a<<2;
+    printf("%d\n",b);
+    printf("%d\n",v);
+    return 0 ;
+}
+*/
+/*
+//(二进制)位操作
+int main()
+{
+    //按位与
+    //按位或
+    //按位异或
+    int a = 3;
+    int b = 5;
+    int c = a&b;//按位与
+      int d = a|b;//按位或
+        int e = a^b; //按位异或
+    //011
+    //101
+    //001
+    printf("%d\n",c);//1
+    //011
+    //101
+    //111
+    printf("%d\n",d);//7
+    //011
+    //101
+    //110   计算规律：对应的二进制位相同为0，不同为1
+    printf("%d\n",e);//6
+    return 0 ;
+}
+*/
+//int mian()
+//  {
+////     int a=0;
+////     int b=~a;
+//     //~是按（二进制）位取反
+//     //1011
+//     //0100
+//    // printf("%d\n",b);
+//       printf("圣诞节分厘卡圣诞节封杀");
+//
+//
+//      return 0;
+//  }
+
+
