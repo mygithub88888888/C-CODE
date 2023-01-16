@@ -1,0 +1,65 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+                              //初识C语言（3）
+//int main()
+//{
+//    double d=3.14;
+//    printf("%lf\n",d);//3.14
+//    double* pd=&d;
+//    *pd=5.6;
+//    printf("%lf\n",d);//5.6
+//    printf("%lf\n",*pd);//5.6
+//    printf("%d\n",sizeof(pd));//4
+
+//    int a=10;
+//    int*p=&a;
+//    printf("%p\n",&a);
+//    printf("%p\n",p);
+//    *p=30;//解应用操作符
+//     printf("%d\n",a);//30
+
+//      printf("%d\n",sizeof(char*));//4
+//      printf("%d\n",sizeof(short*));//4
+//      printf("%d\n",sizeof(int*));//4
+//      printf("%d\n",sizeof(double*));//4
+//      printf("%d\n",sizeof(long*));//4
+//    return 0;
+//}
+/*
+        //结构体====struct
+        //创建一个结构体类型
+        struct Book
+        {
+            char name[20];//C语言程序设计
+            short price;//66
+        };
+
+int main()
+{
+    //创建一个该类型的变量出来
+    struct Book b1 = {"C语言程序设计",66};
+
+    //指针
+    struct Book* pb=&b1;
+    //利用pb打印书的信息
+    printf("%s\n",(*pb).name);
+    printf("%d\n",(*pb).price);//
+       //简便的打印方法          //同样的效果 //.  结构体变量.成员
+    printf("%s\n",pb->name);                  //-> 结构体指针->成员
+    printf("%d\n",pb->price);
+
+
+    //正常
+    printf("书名:%s\n",b1.name);
+    printf("价格:%d元\n",b1.price);
+     //改价格
+    b1.price = 18;
+     //改书名
+    strcpy(b1.name,"C++设计");  //strcpy === string copy --- 字符串拷贝 --库函数——string.h(头文件加进去---#include(String.h))
+    printf("%s\n",b1.name);
+    printf("修改后的价格:%d元\n",b1.price);
+    return 0;
+}
+*/
