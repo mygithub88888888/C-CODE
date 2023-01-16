@@ -1,0 +1,149 @@
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+                   //指针的进阶
+                   //1.字符指针
+                   //2.数组指针
+                   //3.指针数组
+                   //4.数组传参和指针传参
+                   //5.函数指针
+                   //6.函数指针数组
+                   //7.指向函数指针数组的指针
+                   //8.回调函数
+                   //9.指针和数组面试题的解析
+
+                   //指针与数组笔试题解析(1)
+/*
+int main()
+{
+    //数组名是首元素的地址
+    //1.sizeof(数组名) - 数组名表示整个数组 - 计算整个数组的大小
+    //2.&数组名 - 数组名表示整个数组 - 取出的是整个数组的地址
+    //除了上述两种情况数组名都是首元素的地址
+
+    //一维数组
+    int a[] = {1,2,3,4};
+
+    printf("%d\n",sizeof(a));//16-数组总大小-单位是字节
+    printf("%d\n",sizeof(a+0));//（32位平台）4-首元素地址 - a+0还是首元素地址
+    printf("%d\n",sizeof(*a));//4 - 首元素地址解引用 - *a就是首元素
+    printf("%d\n",sizeof(a+1));//4/8 - 数组名表示首元素地址 a+1跳过一个元素 就是第二个元素地址 地址大小就是4/8
+    printf("%d\n",sizeof(a[1]));//4
+    printf("%d\n",sizeof(&a));//4 &a取出的是数组的地址 地址的大小就是4/8（看平台）
+    printf("%d\n",sizeof(*&a));//16 数组地址解引用 计算整个数组的大小 单位是字节
+    printf("%d\n",sizeof(&a+1));//&a是数组的地址 &a+1表示跳过一个数组 到下一个数组 地址大小还是4/8
+    printf("%d\n",sizeof(&a[0]));//4/8 第一个元素的地址
+    printf("%d\n",sizeof(&a[0]+1));//4/8 第二个元素的地址
+
+    return 0;
+}
+*/
+/*
+int main()
+{
+    //字符数组
+    char arr[] = {'a','b','c','d','e','f'};
+
+//    printf("%d\n",sizeof(arr)); //6 计算数组大小 6*1 = 6字节
+//    printf("%d\n",sizeof(arr+0));//4 arr是首元素地址 arr+0依然是 地址大小是4
+//    printf("%d\n",sizeof(*arr));//1
+//    printf("%d\n",sizeof(arr[1]));//1
+//    printf("%d\n",sizeof(&arr));//4
+//    printf("%d\n",sizeof(&arr+1));//4 跳过整个数组的地址
+//    printf("%d\n",sizeof(&arr[0]+1));//4 第二个元素的地址
+
+    printf("%d\n",strlen(arr)); //随机值
+    printf("%d\n",strlen(arr+0));//随机值
+    //printf("%d\n",strlen(*arr));//写法错误err a的ACLL马是97 传了一个数字给strlen
+    //printf("%d\n",strlen(arr[1]));//写法错误err b的ACLL马是98 传了一个数字给strlen
+    printf("%d\n",strlen(&arr));//随机值
+    printf("%d\n",strlen(&arr+1));//随机值-6
+    printf("%d\n",strlen(&arr[0]+1));//随机值-1
+
+    return 0;
+}
+*/
+/*
+int main()
+{
+    char arr[] = "abcdef";//abcdef\0
+
+    printf("%d\n",sizeof(arr));//7  （包括\0）
+    printf("%d\n",sizeof(arr+0));//4/8
+    printf("%d\n",sizeof(*arr));//1
+    printf("%d\n",sizeof(arr[1]));//1
+    printf("%d\n",sizeof(&arr));//4/8
+    printf("%d\n",sizeof(&arr+1));//4/8
+    printf("%d\n",sizeof(&arr[0]+1));//4/8
+    //strlen 计算必须是从一个元素开始 到\0(算)结束
+
+    printf("%d\n",strlen(arr));//6
+    printf("%d\n",strlen(arr+0));//6
+    //printf("%d\n",strlen(*arr));//err
+    //printf("%d\n",strlen(arr[1]));//err
+    printf("%d\n",strlen(&arr));//6
+    printf("%d\n",strlen(&arr+1));//随机值
+    printf("%d\n",strlen(&arr[0]+1));//5
+    //strlen 计算必须是从一个地址开始 到\0(不算)结束
+
+    return 0;
+}
+*/
+/*
+int main()
+{
+    char *p = "abcdef";//把a的地址放在p中
+
+    printf("%d\n",sizeof(p));//4
+    printf("%d\n",sizeof(p+1));//4
+    printf("%d\n",sizeof(*p));//1
+    printf("%d\n",sizeof(p[0]));//1
+    printf("%d\n",sizeof(&p));//4
+    printf("%d\n",sizeof(&p+1));//4
+    printf("%d\n",sizeof(&p[0]+1));//4
+
+    printf("%d\n",strlen(p));//6
+    printf("%d\n",strlen(p+1));//5
+    //printf("%d\n",strlen(*p));//err
+    //printf("%d\n",strlen(p[0]));//err
+    printf("%d\n",strlen(&p));//随机值
+    printf("%d\n",strlen(&p+1));//随机值
+    printf("%d\n",strlen(&p[0]+1));//5
+
+    return 0;
+}
+*/
+/*
+int main()
+{
+    //二维数组
+    int a[3][4] = {0};
+
+    printf("%d\n",sizeof(a));//3*4*4=48
+    printf("%d\n",sizeof(a[0][0]));//4
+    printf("%d\n",sizeof(a[0]));//4*4=16 整个第一行的数组的大小
+    printf("%d\n",sizeof(a[0]+1));//4
+    printf("%d\n",sizeof(*a[0]+1));//4
+    printf("%d\n",sizeof(a+1));//4 第二行数组的地址
+    printf("%d\n",sizeof(*(a+1)));//16
+    printf("%d\n",sizeof(&a[0]+1));//4
+    printf("%d\n",sizeof(*(&a[0]+1)));//16
+    printf("%d\n",sizeof(*a));//16 第一行所有元素的大小
+    printf("%d\n",sizeof(a[3]));//16
+
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
