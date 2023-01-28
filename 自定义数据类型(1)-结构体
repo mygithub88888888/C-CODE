@@ -1,0 +1,250 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+#include<assert.h>
+                   //自定义数据类型(1)-结构体
+/*
+//声明一个结构体类型
+struct Stu
+{
+    //结构体的成员变量
+   char name[20];
+   char tele[12];
+   char sex[10];
+   int age;
+}s4,s5,s6;//全局变量
+struct Stu s3;//全局变量
+int main()
+{
+    int num;
+    char c;
+    //结构体变量的创建
+    //局部变量
+    struct Stu s1;
+    struct Stu s2;
+
+
+    return 0;
+}
+
+struct//匿名结构体变量
+{
+    int a;
+    char c;
+}sa;
+int main()
+{
+
+
+    return 0;
+}
+*/
+/*
+//结构体的自引用
+struct Node
+{
+    int date;
+    //struct Node n;---错误写法
+    struct Node* next;//---正确写法
+};
+int main()
+{
+
+    return 0;
+}
+
+typedef struct Node//typedef重命名
+{
+    int date;
+    struct Node* next;
+}Node;
+int main()
+{
+    struct Node n1;
+    Node n2;
+    return 0;
+}
+*/
+/*
+//结构体变量的定义和初始化
+struct T
+{
+   double weight;
+   short age;
+};
+struct S
+{
+    struct T st;
+    char c;
+    int a;
+    double d;
+    char arr[20];
+};
+int main()
+{
+    //struct S s = {'c',100,3.14,"hello world"};
+    struct S s1 = {{55.6,30},'c',100,3.14,"hello world"};
+    printf("%c %d %lf %s\n",s1.c,s1.a,s1.d,s1.arr);
+    printf("%lf\n",s1.st.weight);
+
+    return 0;
+}
+*/
+//结构体内存对齐
+/*
+struct S1
+{
+    char c1;
+    int a;
+    char c2;
+};
+struct S2
+{
+    char c1;
+    char c2;//调整顺序
+    int a;
+};
+int main()
+{
+    struct S1 s1 = {0};
+    printf("%d\n",sizeof(s1));//12
+    struct S2 s2 = {0};
+    printf("%d\n",sizeof(s2));//8
+
+/*
+如何计算无嵌套结构体的大小？
+由于存储变量地址对齐的问题，计算结构体大小的3条规则：
+1、结构体变量的首地址，必须是结构体变量中的“最大基本数据类型成员所占字节数”的整数倍。（对齐）
+2、结构体变量中的每个成员相对于结构体首地址的偏移量，都是该成员基本数据类型所占字节的整数倍。（对齐）
+3、结构体变量的总大小，为结构体变量中“最大基本数据类型成员所占字节数”的整数倍（补齐）
+*/
+//    return 0;
+//}
+/*
+//练习3
+struct S3
+{
+    double d;
+    char c;
+    int i;
+};
+//printf("%d\n",sizeof(struct S3));//16
+//练习4
+//计算有嵌套结构体的大小？
+struct S4
+{
+    char c1;
+    struct S3 s3;
+    double d;
+};
+//printf("%d\n",sizeof(struct S4));
+int main()
+{
+    struct S4 s4;
+    printf("%d\n",sizeof(s4));//32
+    return 0;
+}
+*/
+/*
+//设置默认对齐数为4
+#pragma pack(4)
+struct S
+{
+    char c1;//1
+    //3
+    double d;//8
+};
+#pragma pack()
+//取消设置默认对齐数
+int main()
+{
+    struct S s;
+    printf("%d\n",sizeof(s));//12
+    return 0;
+}
+//设置默认对齐数为1
+#pragma pack(1)
+struct S1
+{
+    char c1;//1
+    //没有浪费的空间
+    double d;//8
+};
+#pragma pack()
+//取消设置默认对齐数
+int main()
+{
+    struct S1 s;
+    printf("%d\n",sizeof(s));//9
+    return 0;
+}
+*/
+/*
+#include <stddef.h>//196行的offsetof头文件
+struct S
+{
+    char c;
+    int i;
+    double d;
+};
+int main()
+{
+   // offsetof();//用于计算结构体变量中的每个成员相对于结构体起始地址的偏移量
+   printf("%d\n",offsetof(struct S,c));//0
+   printf("%d\n",offsetof(struct S,i));//4
+   printf("%d\n",offsetof(struct S,d));//8
+   //offsetof()是一个宏
+    return 0;
+}
+*/
+/*
+//结构体传参
+struct S
+{
+    int a;
+    char c;
+    double d;
+};
+void Init(struct S* ps)
+{
+    ps->a = 1000;
+    ps->c = 'h';
+    ps->d = 5.62;
+
+}
+//传值
+void Print1(struct S tmp)
+{
+    printf("%d,%c,%lf\n",tmp.a,tmp.c,tmp.d);
+}
+//传址（更好一些）
+void Print2(const struct S *pss)
+{
+    printf("%d,%c,%lf\n",pss->a,pss->c,pss->d);
+}
+int main()
+{
+    struct S s = {0};;
+    Init(&s);
+    Print1(s);
+    Print2(&s);
+    /*
+    s.a = 100;
+    s.c = 'w';
+    s.d = 3.14;
+    printf("%d\n",s.a);
+    */
+//    return 0;
+//}
+
+
+
+
+
+
+
+
