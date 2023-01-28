@@ -1,0 +1,152 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+#include<assert.h>
+
+
+                  //字符串函数使用和剖析&&内存函数(4)
+
+//内存函数
+/*
+//memcpy函数 --- 内存拷贝函数
+struct S
+{
+    char name[20];
+    int age;
+};
+int main()
+{
+//   int arr1[] = {1,2,3,4,5};
+//   int arr2[5] = {0};
+
+   //memcpy(arr2,arr1,sizeof(arr1));
+
+//   int i = 0;
+//   for(i=0;i<5;i++)
+//   {
+//    printf("%d\n",arr2[i]);
+//   }
+
+    struct S arr3[] = {{"王旭龙",33},{"陈邑烜,26}};
+    struct S arr4[2] = {0};
+    memcpy(arr4,arr3,sizeof(arr3));
+    struct S *p = arr4;
+    for(p = arr4; p < &arr4[2]; p++)
+    {
+        printf("%s,%d\n", (*p).name, (*p).age );
+    }
+    return 0;
+}
+*/
+/*
+//结构体数组打印的方法
+struct s
+{
+    char name[10];
+    int age;
+};
+int main()
+{
+    struct s a[3] = {{"John",19},{"Paul",17},{"Marry",18}};
+    struct s *p = a;
+    for(p = a; p < &a[3]; p++)
+    {
+        printf("%s,%d\n", (*p).name, (*p).age );
+    }
+}
+*/
+/*
+//memmove函数---处理内存重叠的情况
+//C语言标准
+//memmove---处理内存重叠的拷贝
+//memcpy---只要处理 不重叠的内存拷贝就可以
+int main()
+{
+    int arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int i = 0;
+    memmove(arr+2,arr,20);
+    for(i=0;i<10;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+
+    return 0;
+}
+*/
+//memmove实现方式
+//void * __cdecl memmove ( void * dst, const void * src, size_t count )
+//{
+//void * ret = dst;
+//
+//if (dst <= src || (char *)dst >= ((char *)src + count)) {
+/*
+//* Non-Overlapping Buffers
+//* copy from lower addresses to higher addresses
+//*/
+//while (count--) {
+//*(char *)dst = *(char *)src;
+//dst = (char *)dst + 1;
+//src = (char *)src + 1;
+//}
+//}
+//else {
+/*
+//* Overlapping Buffers
+//* copy from higher addresses to lower addresses
+//*/
+//dst = (char *)dst + count - 1;
+//src = (char *)src + count - 1;
+//
+//while (count--) {
+//*(char *)dst = *(char *)src;
+//dst = (char *)dst - 1;
+//src = (char *)src - 1;
+//}
+//}
+//
+//return(ret);
+//}
+/*
+//memcmp函数---比较内存
+int main()
+{
+    int arr1[] = {1,2,3,4,5};
+    int arr2[] = {1,2,5,4,3};
+    int ret = memcmp(arr1,arr2,8);//8指的是字节数 前8个字节 即前两个数字占的空间
+    printf("%d\n",ret);
+
+    return 0;
+}
+*/
+/*
+//memset函数---内存设置
+int main()
+{
+    char arr[10]  = "";
+    memset(arr,'#',10);
+
+    int arr[10] = {0};
+    //10个整型 40个字节
+    memset(arr,1,10);//把10个字节设置为1 而不是10个元素
+
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
