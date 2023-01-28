@@ -1,0 +1,174 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+#include<assert.h>
+
+
+                  //字符串函数使用和剖析(3)
+//字符函数和字符串函数
+/*
+//strstr()函数---查找字符串
+int main()
+{
+    char *p1 = "abcdef";
+    char *p2 = "def";
+    char* ret = strstr(p1,p2);//在p1中找p2
+    if(ret == NULL)
+    {
+        printf("子串不存在");
+    }
+    else
+    {
+        printf("%s\n",ret);
+    }
+    return 0;
+}
+
+//strstr函数的实现
+char* my_strstr(const char*p1,const char*p2)
+{
+    assert(p1 != NULL);
+    assert(p2 != NULL);
+    char*s1 = p1;
+    char*s1 = p2;
+    char*cur = p1;
+    if(*p2 == '\0')
+    {
+        return p1;
+    }
+    while(*cur)
+    {
+        s1 = cur;
+        s2 = p2;
+        while((*s1 != '\0')&&(*s2 != '\0')&&(*s1 == *s2))
+        {
+            s1++;
+            s2++;
+        }
+        if(*s2 == '\0')
+        {
+           return cur;//找到子串
+        }
+        cur++;
+    }
+}
+int main()
+{
+    char *p1 = "abcdef";
+    char *p2 = "def";
+    char* ret = my_strstr(p1,p2);//在p1中找p2
+    if(ret == NULL)
+    {
+        printf("子串不存在");
+    }
+    else
+    {
+        printf("%s\n",ret);
+    }
+    return 0;
+}
+*/
+/*
+//strtok函数 --- 字符串分割函数
+int main()
+{
+    char arr[] = "2931495392@qq.com";
+    char *p = "@.";
+
+    char buf[1024] = {0};
+    strcpy(buf,arr);
+
+    //切割buf中的字符串
+    char* ret = NULL;
+    for (ret = strtok(arr,p);ret != NULL;ret = strtok(NULL,P))
+    {
+        //点分十进制
+        printf("%s\n",ret);
+    }
+
+
+//    char* ret = strtok(arr,p);
+//    printf("%s\n",ret);
+//
+//    ret = strtok(NULL,p);
+//    printf("%s\n",ret);
+//
+//    ret = strtok(NULL,p);
+//    printf("%s\n",ret);
+
+    return 0;
+}
+*/
+/*
+//strerror --- 错误报告函数
+int main()
+{
+
+   char*str0 = strerror(0);
+   printf("%s\n",str0);
+   //0---No error
+
+   char*str1 = strerror(1);
+   printf("%s\n",str1);
+   //1---Operation not permitted
+
+   char*str2 = strerror(2);
+   printf("%s\n",str2);
+   //2---No such file or directory
+
+   //errno是一个全局的错误码的变量
+   //当C语言的库函数在执行过程中 发生了错误 就会把对应的错误码 赋值到errno中
+   char*str = strerror(errno);
+   printf("%s\n",str);
+    return 0;
+}
+*/
+/*
+//字符分类函数
+#include<ctype.h> //134行的islower函数
+int main()
+{
+//    char ch = 'w';
+//    //int ret = islower(ch);//判断是否是小写字母
+//    int ret = isdigit(ch);//判断是否是数字
+//    printf("%d\n",ret);
+//
+
+//    char ch = tolower('Q');
+//    putchar(ch);//q---转为小写字母
+//    char ch1 = toupper('q');
+//    putchar(ch1);//Q---转为大写字母
+
+    //全部转为小写
+    char arr[] = "I Am A Student";
+    int i = 0;
+    while(arr[i])
+    {
+        if(isupper(arr[i]))
+        {
+            arr[i] = tolower(arr[i]);
+        }
+        i++;
+    }
+    printf("%s\n",arr);
+
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
