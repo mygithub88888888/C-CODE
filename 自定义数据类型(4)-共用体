@@ -1,0 +1,195 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+#include<assert.h>
+                      //自定义数据类型(4)-共用体
+/*
+C 共用体
+共用体是一种特殊的数据类型，允许您在相同的内存位置存储不同的数据类型。您可以定义一个带有多成员的共用体，但是任何时候只能有一个成员带有值。共用体提供了一种使用相同的内存位置的有效方式。-----菜鸟教程
+
+结构体和共用体的区别在于：结构体的各个成员会占用不同的内存，互相之间没有影响；而共用体的所有成员占用同一段内存，修改一个成员会影响其余所有成员，具体的理解会在文章后面（如何理解“共用体的所有成员占用同一段内存”）详细解释。
+
+共用体的声明以及访问
+先说共用体是怎么声明以及使用的，其实共用体和结构体的定义以及访问方式是一样的，访问共用体的成员，我们使用成员访问运算符（.）。
+
+如，定义一个名为Test的共用体
+
+union Test {
+    int a;
+    double pi;
+    char str[20];
+};
+
+定义一个共用体变量，与结构体一样可以在定义的时候就直接声明，如声明共用体变量union_a,union_b
+
+union Test {
+    int a;
+    double pi;
+    char str[20];
+}union_a,union_b;
+
+也可以在定义了共用体类型Test后，直接定义一个共用体变量，如
+
+union Test a,b
+
+如何理解“共用体的所有成员占用同一段内存”
+我们先假设共用体Test暂用内存空间为编号为0-50的内存，对于以上例子中，成员a，成员pi，成员str他们存放的地址都是以编号为0的内存为起始地址开始存放。所以我们对共用体中任何一个成员进行改变的时候，都会影响其他成员的结果。下面以一个例子来理解：
+
+#include <stdio.h>
+#include <string.h>
+union Test {
+    int a;
+    double pi;
+    char str[20];
+};
+int main()
+{
+    union  Test test;
+    strcpy(test.str,"hello world");
+    printf("a = %d\n", test.a);
+    printf("pi = %f\n", test.pi);
+    printf("str = %s\n", test.str);
+    return 0;
+}
+
+输出结果：
+a = 1819043176
+pi = 8765776478827896800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.000000
+str = hello world
+
+由以上的解释中，我们可以知道为什么程序的输出结果是这样，现在来分析一遍，在程序中将test.str赋值为"hello world"，所以在共用体的内存空间中，存储的实际上是字符串形式的"hello world"，由于共用体中的成员占用同一段内存，所以呢，此时读取成员test.a实际上是在读取相同内存，由于int是4个字节，所以是从相同的内存中读取4个字节，然后变成了我们看到的这样。同理，pi是double类型的，double是在c语言中暂用8个字节，所以是从相同的内存中读取8个字节出来。
+
+共用体的暂用空间的大小
+共用体的暂用的空间一般稍大于共用体中暂用空间最大的成员所暂用的空间，有一点小绕口，如下面的例子，共用体Test中，成员a暂用4个字节，成员pi暂用8个字节，而成员str暂用20个字节，所以共用体暂用空间应该稍大于成员str的暂用空间，最后通过程序结果可以看到暂用空间为24个字节。对于共用体具体要暂用多少的空间，目前笔者还没用对他进行深入的了解，需要了解的朋友可以查阅其他的资料。
+
+#include <stdio.h>
+union Test {
+    int a;
+    double pi;
+    char str[20];
+};
+int main()
+{
+    union  Test test;
+    printf("sizeof test = %d\n", sizeof(Test));
+    return 0;
+}
+
+输出结果：sizeof test = 24
+
+共用体的一个简单应用：实现将不同的数据类型存放在以字节为单位的内存中，而不需要经过类型的转换
+如我们要将一个float类型的数据存放在eeprom中，可以声明以下的共用体类型
+
+// 声明共用体eeprom_float
+union eeprom_float
+{
+   float a;
+   u8 b[4];
+}float_write,float_read;
+
+// 将共用体中的数据以字节的方式存放到eeprom中
+for(i=0;i<sizeof(float);i++)
+{
+	Write_AT24c02(0x10+i,float_write.b[i]);
+	Delay_Ms(5);
+}
+for(i=0;i<sizeof(float);i++)
+{
+	float_read.b[i]=Read_AT24c02(0x10+i);
+}
+
+// 此时共用体float_read.a就等于float_write.a，而不需要在存放和读取的时候进行数据类型的转换
+sprintf((char*)lcd_str,"float_read=%f",float_read.a);
+LCD_DisplayStringLine(Line0,lcd_str);
+*/
+//联合体-共用体-共用同一块空间
+union un
+{
+    char c;
+    int i;
+};
+int main()
+{
+    union un u;
+    printf("%d\n",sizeof(u));//4
+    printf("%p\n",&(u.c));
+    printf("%p\n",&(u.i));
+    printf("%p\n",&u);
+    return 0;
+}
+int check_sys()
+{
+    int a = 1;
+    //返回1表示小端 返回0表示大端
+    return*(char*)&a;
+}
+int check_sys()
+{
+    union Un
+    {
+        char c;
+        int i;
+    }u;
+    u.i = 1;
+    //返回1表示小端 返回0表示大端
+    return u.c;
+}
+int main()
+{
+     int a = 1;
+     int ret = check_sys();
+     if(1 == *(char*)&a)
+     {
+         printf("小端\n");
+     }
+     else{
+         printf("大端\n");
+     }
+    //int a = 0x11223344;
+    //
+    //低地址---------------高地址
+    //...[][][][][11][22][33][44][][][][][][][][][]...大端字节序存储模式
+    //...[][][][][44][33][22][11][][][][][][][][][]...小端字节序存储模式
+    //讨论一个数据 放在内存的存放的字节顺序
+    //大小端字节序问题
+    //
+
+    return 0
+}
+//联合体大小的计算
+//两个规则：
+//1.联合体大小至少是最大的成员的大小
+//2.计算出的联合体大小必须是联合体中占内存大小最大的成员类型的整数倍
+union Un
+{
+    int a ;
+    char arr[5];
+};
+int main()
+{
+    union Un u;
+    printf("%d\n",sizeof(u));//8
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
