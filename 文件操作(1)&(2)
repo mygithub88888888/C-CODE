@@ -1,0 +1,538 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<errno.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+#include<assert.h>
+
+                    //文件操作(1)&(2)
+/*
+int main()
+{
+   //打开文件test36.txt
+   //相对路径
+   //..表示上一级路径
+   //. 表示当前路径
+//   fopen("../../test36.txt","r");
+//   fopen("test36.txt","r");
+
+   //绝对路径的写法
+//   fopen("D:\\C-CODE\\Demo1\\test36.txt","r");
+
+     FILE* pf = fopen("test36txt.txt","r");
+      //FILE* pf = fopen("test37txt.txt","w"); -//生成test37txt.txt文件 w-建立一个新的文件
+     if(pf == NULL)
+     {
+         printf("%s\n",strerror(errno));
+         return 0;
+     }
+     //打开文件
+     //读文件
+
+     //关闭文件
+     fclose(pf);
+     pf = NULL;
+
+    return 0;
+}
+*/
+//文件的顺序读写
+/*
+//写
+int main()
+{
+    FILE *pfWrite = fopen("TEST.txt","w");
+    if(pfWrite == NULL)
+    {
+        printf("%s\n",strerror(errno));
+        return 0;
+    }
+    //写文件
+    fputc('h',pfWrite);
+    fputc('e',pfWrite);
+    fputc('l',pfWrite);
+    fputc('l',pfWrite);
+    fputc('o',pfWrite);
+
+    //关闭文件
+    fclose(pfWrite);
+    pfWrite = NULL;
+
+    return 0 ;
+}
+*/
+/*
+//读
+int main()
+{
+    FILE *pfRead = fopen("TEST.txt","r");
+    if(pfRead == NULL)
+    {
+        printf("%s\n",strerror(errno));
+        return 0;
+    }
+    //读文件
+    printf("%c",fgetc(pfRead));
+    printf("%c",fgetc(pfRead));
+    printf("%c",fgetc(pfRead));
+    printf("%c",fgetc(pfRead));
+    printf("%c",fgetc(pfRead));
+
+    //关闭文件
+    fclose(pfRead);
+    pfRead= NULL;
+
+    return 0 ;
+}
+*/
+/*
+//键盘-标准输入设备-stdin
+//屏幕-标准输出设备-stdout
+//
+//stdin  --- FILE*
+//stdout --- FILE*
+//stderr --- FILE*
+//
+
+int main()
+{
+   int ch = fgetc(stdin);
+   fputc(ch,stdout);
+
+    return 0 ;
+}
+*/
+/*
+//文本行的输入和输出函数
+//fgets---读取一行
+int main()
+{
+    char buf[1024] = {0};
+
+    FILE *pfRead = fopen("TEST.txt","r");
+    if(pfRead == NULL)
+    {
+        return 0;
+    }
+    //读文件
+    fgets(buf,1024,pfRead);
+    //printf("%s\n",buf);
+    puts(buf);
+    fgets(buf,1024,pfRead);
+    //printf("%s\n",buf);
+    puts(buf);
+
+    //关闭文件
+    fclose(pfRead);
+    pfRead = NULL;
+
+    return 0;
+}
+*/
+/*
+//fputs---写入一行
+int main()
+{
+    char buf[1024] = {0};
+
+    FILE *pfRead = fopen("TEST.txt","w");
+    if(pfRead == NULL)
+    {
+        return 0;
+    }
+    //写文件
+    fputs("specify\n",pfRead);
+    fputs("domain\n",pfRead);
+
+    //关闭文件
+    fclose(pfRead);
+    pfRead = NULL;
+
+    return 0;
+}
+*/
+/*
+int main()
+{
+    //从键盘读取一行文本
+    char buf[1024] = {0};
+//    fgets(buf,1024,stdin);//从标准输入读取
+//    fputs(buf,stdout);//输出到标准输出流
+
+      gets(buf);
+      puts(buf);
+
+    return 0;
+}
+*/
+//格式化输入输出函数---fscanf函数和fprintf函数
+//scanf/printf---是针对标准输入流/标准输出流的 格式化输入/输出语句
+//fscanf/fprintf---是针对所有输入流/所有输出流的 格式化输入/输出语句
+/*
+//写
+struct S
+{
+    int n;
+    float score;
+    char arr[10];
+};
+int main()
+{
+    struct S s = {100,3.14f,"virtual"};
+    FILE* pf = fopen("TEST.txt","w");
+     if(pf == NULL)
+    {
+        return 0;
+    }
+    //格式化形式的输出数据
+    fprintf(pf,"%d %f %s",s.n,s.score,s.arr);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+/*
+//读
+struct S
+{
+    int n;
+    float score;
+    char arr[10];
+};
+int main()
+{
+    struct S s = {0};
+    FILE* pf = fopen("TEST.txt","r");
+     if(pf == NULL)
+    {
+        return 0;
+    }
+    //格式化形式的输入数据
+    fscanf(pf,"%d %f %s",&(s.n),&(s.score),&(s.arr));
+    printf("%d %f %s",s.n,s.score,s.arr);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+/*
+struct S
+{
+    int n;
+    float score;
+    char arr[10];
+};
+int main()
+{
+    struct S s = {0};
+
+    //所有输入输出流
+    fscanf(stdin,"%d %f %s",&(s.n),&(s.score),&(s.arr));
+    fprintf(stdout,"%d %f %s",s.n,s.score,s.arr);
+
+    return 0;
+}
+*/
+/*
+//sscanf是从字符串中读取格式化数据
+//sprintf把格式化的数据存储到（输出成）字符串
+struct S
+{
+    int n;
+    float score;
+    char arr[20];
+};
+int main()
+{
+    struct S s = {100,3.1415f,"accessibility"};
+    struct S tmp = {0};
+
+    char buf[1024] = {0};
+
+    //把格式化的数据转换成字符串存储到buf
+    sprintf(buf,"%d %f %s",s.n,s.score,s.arr);
+    //printf("%s\n",buf);
+
+    //从buf中读取格式化的数据到tmp中
+    sscanf(buf,"%d %f %s",&(tmp.n),&(tmp.score),&(tmp.arr));
+    printf("%d %f %s\n",tmp.n,tmp.score,tmp.arr);
+
+    return 0;
+}
+
+//二进制输入输出函数---fread/fwrite函数
+/*
+//写
+struct S
+{
+    char name[20];
+    int age;
+    double score;
+};
+int main()
+{
+    struct S s = {"闫祥龙",20,99.9};
+    FILE* pf = fopen("TEST.txt","wb");
+     if(pf == NULL)
+    {
+        return 0;
+    }
+    //二进制的形式的写数据
+    fwrite(&s,sizeof(struct S),1,pf);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+*/
+/*
+//读
+struct S
+{
+    char name[20];
+    int age;
+    double score;
+};
+int main()
+{
+    struct S tmp = {0};
+    FILE* pf = fopen("TEST.txt","rb");
+     if(pf == NULL)
+    {
+        return 0;
+    }
+    //二进制的形式的读数据
+    fread(&tmp,sizeof(struct S),1,pf);
+    printf("%s %d %lf\n",tmp.name,tmp.age,tmp.score);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+/*
+//文件的随机读写---fseek
+int main()
+{
+    FILE* pf = fopen("TEST.txt","r");
+    if(pf == NULL)
+    {
+        return 0;
+    }
+    //1.定位文件指针
+
+    //SEEK_CUR-文件指针的当前位置
+    //SEEK_END-文件的末尾位置
+    //SEEK_SET-文件的起始位置
+
+    fseek(pf,3,SEEK_CUR);
+    //2.读取文件
+    int ch = fgetc(pf);
+    printf("%c\n",ch);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+/*
+//返回文件指针相对起始位置的偏移量---ftell函数
+int main()
+{
+    FILE* pf = fopen("TEST.txt","r");
+    if(pf == NULL)
+    {
+        return 0;
+    }
+    //1.定位文件指针
+
+    fseek(pf,6,SEEK_CUR);
+    int pos = ftell(pf);
+    printf("%d\n",pos);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+/*
+//让文件指针的位置回到文件的起始位置---rewind函数
+int main()
+{
+    FILE* pf = fopen("TEST.txt","r");
+    if(pf == NULL)
+    {
+        return 0;
+    }
+    //1.定位文件指针
+
+    //fseek(pf,6,SEEK_CUR);
+    int ch = fgetc(pf);
+    printf("%c\n",ch);
+//    int pos = ftell(pf);
+//    printf("%d\n",pos);
+      rewind(pf);
+      ch = fgetc(pf);
+      printf("%c\n",ch);
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+//文件结束的判定
+/*
+  一、feof()是什么？
+feof()是检测流上的文件结束符的函数，如果文件结束，则返回非0值，否则返回0
+
+一般在文件操作，中经常使用feof()判断文件是否结束。
+ FILE* pf = fopen("TEST.txt","r");
+    if(pf == NULL)
+    {
+        return 0;
+    }
+二、feof()的经典错误
+根据这个函数的定义，一般大家都是这样使用的，但是这样使用，文件中无论是否有内容，都会被判断为“文件不为空”。
+
+#include<stdio.h>
+int main(void)
+{
+    FILE *p;
+    p = fopen("open.txt", "r");
+    if (feof(p))
+    {
+        printf("文件为空。");
+    }
+    else
+    {
+        printf("文件不为空。");
+    }
+    return 0;
+ }
+
+三、feof()的原理
+1.EOF
+EOF是一个计算机术语，为End Of File的缩写，在操作系统中表示资料源无更多的资料可读取。资料源通常称为档案或串流。通常在文本的最后存在此字符表示资料结束。
+
+这个定义的意思是，文档的结尾都有一个隐藏字符”EOF”，当程序读取它的时候，就会知道文件已经到达结尾。通常使用while循环加EOF判断作为读取结束的标志。
+
+EOF 的值通常为 -1，但它依系统有所不同。
+
+2.feof()
+feof()的原理：
+feof()函数，并不是通过读取到文件的EOF来评判，这个文件是否为空。
+对feof()来说,它的工作原理是，站在光标所在位置，向后看看还有没有字符。如果有，返回0；如果没有，返回非0。它并不会读取相关信息，只是查看光标后是否还有内容。
+直接使用时的错误分析：
+对于一个空文件来说，当程序打开它的时候，它的光标会停在文件的开头，但是由于文件里什么内容都没有存（但是EOF是存在的），即整个文件就存贮了一个EOF。当程序打开文件，并直接调用feof()时，这个函数就会站在光标的位置向后张望，结果就看见了EOF，然后就当然返回0了。
+四、如何正确使用
+既然我们明白了原理，那么如何正确的使用它呢？
+
+#include<stdio.h>
+int main(void)
+{
+    FILE *p;
+    p = fopen("open.txt", "r");
+    getc(p);
+    if (feof(p))
+    {
+        printf("文件为空。");
+    }
+    else
+    {
+        rewind(p);//将光标跳回到文件开头
+        int a;
+        fscanf(p,"%d",&a);
+        printf("%d", a);
+    }
+    return 0;
+ }
+
+分析：
+
+对于文件来说，无论是空文件，还是存有信息的文件，当文件被打开，光标处于默认的开头时，光标后都有信息，这时候调用feof()来查看光标后是否还有内容，就没意义。
+所以我们需要从相同中找不同，先使用getc(),从文件中读取一个字符，让光标向后移动一个字符。这时空文件的光标就已经移动到EOF的后面，这时使用feof()就会返回1了。这才是feof()的正确用法。
+但是要注意，一定要将光标回到文件的开头，因为之前判断文件是否为空时，将光标向前移动了一位，必须要将光标恢复到开头，这样才能保证文件的正常读取。
+*/
+/*
+//feof的正确使用
+int main()
+{
+    FILE* pf = fopen("TEST.txt","r");
+    if(pf == NULL)
+    {
+        perror("open file TEST.txt");
+        return 0;
+    }
+    //读文件
+    int ch = 0;
+    while((ch = fgetc(pf)) != EOF)
+    {
+        putchar(ch);
+    }
+    if(ferror(pf))
+    {
+        printf("error\n");
+    }
+    else if(feof(pf))
+    {
+        printf("end of file\n");
+    }
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+/*
+ //两种给报错方式
+int main()
+{
+//    strerror - 把错误码对应的错误信息的字符串地址返回
+//    printf("%s\n",strerror(errno));
+
+      //perror
+      //---用起来简单 不需要引头文件
+    FILE* pf = fopen("TEST2.txt","r");
+    if(pf == NULL)
+    {
+        perror("open file TEST2.txt");
+        return 0;
+    }
+    //读文件
+
+    //关闭文件
+    fclose(pf);
+    pf = NULL;
+
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
+
+
