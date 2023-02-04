@@ -1,0 +1,298 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<errno.h>
+#include<windows.h>
+#include<math.h>
+#include<time.h>
+#include<assert.h>
+
+                    //C语言预处理(1)
+/*
+//预定义符号
+int main()
+{
+    printf("%s\n",__FILE__);
+    printf("%d\n",__LINE__);
+    printf("%s\n",__DATE__);
+    printf("%s\n",__TIME__);
+
+    //写日志文件
+    int  i = 0;
+    int arr[10] = {0};
+    FILE*pf = fopen("log.txt","w");
+    for(i = 0;i<10;i++)
+    {
+        arr[i]= i;
+        fprintf(pf,"file:%s line:%d date:%s time:%s i=%d\n",
+                __FILE__,__LINE__,__DATE__,__TIME__);
+                printf("%s\n",__FUNCTION__);
+
+    }
+    fclose(pf);
+    pf = NULL;
+    for(i = 0;i<10;i++)
+    {
+        printf("%d ",arr[i]);
+
+    }
+    return 0;
+}
+int main()
+{
+    printf("%d\n",__STDC__);
+
+    return 0 ;
+}
+*/
+//预处理指令
+//#define
+//#include
+//#pragma
+//#if
+//#endif
+//...
+
+/*
+预处理指令是以 #号为代码开头。下面是部分常用的预处理指令：
+指令	用途
+#	空指令无任何效果
+#include	包含一个源代码文件
+#define	定义宏
+#undef	取消已定义的宏
+#if	如果给定条件为真，则编译下面代码
+#ifdef	如果宏已经定义，则编译下面代码
+#ifndef	如果宏没有定义，则编译下面代码
+#elif	如果前面的#if给定条件不为真，当前条件为真，则编译下面代码
+#endif	结束一个#if……#else条件编译块
+#error	停止编译并显示错误信息
+一、条件编译
+条件编译指令将决定那些代码被编译，而那些不被编译的。可以根据表达式的值或者某个特定的宏是否被定义来确定编译条件。
+
+1.#if指令
+#if指令检测关键后的常量表达式。如果为真，则就编译后面的代码，直到出现#else、#elif或者#endif为止；否则就不进行编译。
+
+2.#endif
+#endif终值#if预处理指令。
+
+#define DEBUG 0
+int main()
+{
+	#if DEBUG
+		代码块1
+    #endif
+    	代码块2
+}
+
+由于程序定义DEBUG宏代表0，所以#if条件为假，不编译后面的代码直到#endif，所以程序直接执行代码块2。
+
+3.#ifdef和#ifndef
+#define DEBUG
+
+int main()
+{
+	#ifdef DEBUG
+		代码块1
+    #endif
+
+    #ifndef DEBUG
+    	代码块2
+    #endif
+}
+
+#if defined等价于#ifdef; #if !defined等价于#ifndef
+
+4.#else指令
+#else指令用于某个#if指令之后，当前面的#if指令的条件不为真时，就编译#else后面的代码。#endif指令将中指上面的条件块。
+
+#define DEBUG
+
+int main()
+{
+    #ifdef DEBUG
+         代码块1
+    #else
+         代码块2
+    #endif
+         代码块3
+}
+
+5.#elif指令
+#elif预处理指令综合了#else和#if指令的作用。
+
+#define TWO
+
+int main()
+{
+    #ifdef ONE
+          代码块1
+    #elif defined TWO
+          代码块2
+    #else
+          代码块3
+    #endif
+}
+
+执行代码块3
+
+二、其他一些标准指令
+1.#pragme
+#pragma指令没有正式的定义。编译器可以自定义其用途。典型的用法是禁止或允许某些烦人的警告信息。
+
+#pragma region 功能
+	代码块
+#pragma endregion
+
+*/
+//#define MAX 100
+//#define STR "HEHEHE"
+////int main()
+////{
+//////    int max = MAX;
+//////    int max = 100;
+//////    printf("%d\n",max);
+////    printf("%s\n",STR);
+////
+////    return 0;
+////}
+///*
+//C语言
+//数据结构
+//C++
+//高级数据结构
+//Linux系统/MySQL/网络+网络编程
+//*/
+////#define定义宏
+////宏是完整替换的 而不是传参过去的
+//#define SQUARE(X) X*X
+//int main()
+//{
+//    int ret = SQUARE(5);
+//    printf("ret = %d\n",ret);//25
+//
+//     int ret1 = SQUARE(5+1);
+//    printf("ret1 = %d\n",ret1);//11 - 5+1*5+1=11
+//
+//    return 0;
+//}
+//
+//#define SQUARE(X) (X)*(X)
+//int main()
+//{
+//    int ret1 = SQUARE(5+1);
+//    printf("ret1 = %d\n",ret1);//36
+//
+//    return 0;
+//}
+/*
+#define DOUBLE(X) ((X)+(X))
+//定义宏的时候不要吝啬括号
+int main()
+{
+    int a = 5;
+    int ret = 10*DOUBLE(a);
+    printf("%d\n",ret);
+
+    return 0;
+}
+*/
+//#define替换规则
+/*
+#define 替换规则
+
+1.在调用宏时，首先对参数进行检查，看看是否包含任何由#define定义的符号。如果是，它们会被替换。
+2.替换后被插入到程序中原来文本的位置，对于宏，参数名被他们替换。
+3.最后，再次扫描，看看是否包含任何由#define定义的符号。如果是，重复上述过程。
+
+注意：
+1.宏参数和#define定义中可以出现其他#define定义的变量。但是对于宏，不能出现递归。
+2.当预处理搜索#define定义的符号时，字符串常量的内容不被搜索。
+
+##
+
+##可以吧位于它俩边的符号合成一个新的符号，它允许宏定义从分离的文本片段创建标识符。
+
+#define ADD_TO_SUM(num,value)
+          sum##num += value;
+....
+
+ADD_TO_SUM(5, 10);//给sum5增加10；
+
+#undef
+
+这个特别简单就是移除一个宏定义。
+
+#undef NAME
+//NAME被宏定义过，现在移除
+
+*/
+
+//#和##
+//void print(int a)
+//{
+//    printf("the value of a is %d\n",a);
+//}
+//int main()
+//{
+//    int a = 10;
+//    int b = 20;
+//    //printf("the value of a is %d\n",a);
+//    print(a);
+//    print(b);
+//    //明显函数解决不了the value of ... is...的问题
+//    //下面用宏
+//    return 0;
+//}
+/*
+#define PRINT(X) printf("the value of "#X" is %d\n",X)
+//#---把宏的参数插入到字符串中
+int main()
+{
+//    printf("hello world\n");
+//    printf("hel" "lo " "world\n");
+//    printf("hello " "world\n");
+
+      int a = 10;
+      int b = 20;
+      PRINT(a);
+      //the value of a is 10
+      PRINT(b);
+      //the value of b is 20
+
+    return  0;
+}
+*/
+/*
+//##---可以吧位于它俩边的符号合成一个新的符号，它允许宏定义从分离的文本片段创建标识符。
+#define CAT(X,Y) X##Y
+int main()
+{
+    int Class02 = 2020;
+    //printf("%d\n",class02);
+
+    printf("%d\n",CAT(Class,02));//2020
+    return 0;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
